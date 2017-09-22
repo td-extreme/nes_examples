@@ -37,13 +37,16 @@ TEXT_Y          EQU     $FA
 
 PADDLE_1_X      EQU     $F0
 PADDLE_1_Y      EQU     $EF
+PADDLE_1_WIDTH  EQU     $E0
+PADDLE_1_HEIGHT EQU     $E1
 
+BALL_X          EQU     $E2
+BALL_Y          EQU     $E3
+BALL_WIDTH      EQU     $E4
+BALL_HEIGHT     EQU     $E5
 
-BALL_X          EQU     $E0
-BALL_Y          EQU     $E1
-
-BALL_DIRECTION_X    EQU     $E2
-BALL_DIRECTION_Y    EQU     $E3
+BALL_DIRECTION_X    EQU     $E6
+BALL_DIRECTION_Y    EQU     $E7
 
 Start: lda #%00001000 ; do the setup of PPU
   sta $2000
@@ -65,9 +68,18 @@ Start: lda #%00001000 ; do the setup of PPU
   stx PADDLE_1_X
   sty PADDLE_1_Y
 
+  ldx #08
+  stx PADDLE_1_WIDTH
+  ldx #32
+  stx PADDLE_1_HEIGHT  
+
   ldx #125
   stx BALL_X
   stx BALL_Y
+  
+  ldx #08
+  stx BALL_WIDTH
+  stx BALL_HEIGHT
 
   ldx #$01
   stx BALL_DIRECTION_X
@@ -154,35 +166,27 @@ waitblank:        ; this is the wait for VBlank code from above
 x_right:
   inx
   stx BALL_X
-  jmp check_x_paddle_two
+  jmp check_x_paddle_one
 
 x_left:
   dex
   stx BALL_X
-  cpx #24
-  bne finish_x
 
 check_x_paddle_one:
-  lda BALL_Y
-  adc #08
-  cmp PADDLE_1_Y
-  bcc miss
-  lda BALL_Y
-  sbc #30
-  cmp PADDLE_1_Y
-  bcs miss
-  lda #$01
-  sta BALL_DIRECTION_X
-  jmp finish_x
 
-miss:
+  collision_detection BALL_X, BALL_Y, BALL_WIDTH, BALL_HEIGHT, PADDLE_1_X, PADDLE_1_Y, PADDLE_1_WIDTH, PADDLE_1_HEIGHT
 
-check_x_paddle_two:
-  cpx #200
+  sbc TRUE 
   bne finish_x
+  lda #$01
+  cmp BALL_DIRECTION_X
+  beq swap_ball_dir_x_1
   lda #$00
   sta BALL_DIRECTION_X
   jmp finish_x
+
+  lda #$01
+  sta BALL_DIRECTION_X
 
 finish_x:
 
@@ -193,23 +197,26 @@ finish_x:
 y_down:
   iny
   sty BALL_Y
-  jmp check_y_down
+  jmp check_y_paddle_one
 
 y_up:
   dey
   sty BALL_Y
   jmp check_y_up
 
-check_y_down:
-  cpy #200
+check_y_paddle_one:
+
+  collision_detection BALL_X, BALL_Y, BALL_WIDTH, BALL_HEIGHT, PADDLE_1_X, PADDLE_1_Y, PADDLE_1_WIDTH, PADDLE_1_HEIGHT
+
+  sbc TRUE 
   bne finish_y
+  lda #$01
+  cmp BALL_DIRECTION_Y
+  beq swap_ball_dir_y_1
   lda #$00
   sta BALL_DIRECTION_Y
   jmp finish_y
 
-check_y_up:
-  cpy #10
-  bne finish_y
   lda #$01
   sta BALL_DIRECTION_Y
 

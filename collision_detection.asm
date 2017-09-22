@@ -27,7 +27,7 @@ collision_detection .macro
   ldx \1  ; put obj1.x into reg_x
   ldy \2  ; put obj1.y into reg_y
   is_point_in_box \5, \6, \7, \8
-  sdc TRUE
+  sbc TRUE
   beq collision_detection_return_true
   
   ; check if top right corner obj1 is inside obj2
@@ -36,7 +36,7 @@ collision_detection .macro
   tax     ; put obj1.x + obj1.width into reg_x
   ldy \2  ; put obj1.y into reg_y
   is_point_in_box \5, \6, \7, \8
-  sdc TRUE
+  sbc TRUE
   beq collision_detection_return_true
 
   ; check if bottom left corner obj1 is inside obj2
@@ -45,7 +45,7 @@ collision_detection .macro
   adc \4
   tay  ; put obj1.y into reg_y
   is_point_in_box \5, \6, \7, \8
-  sdc TRUE
+  sbc TRUE
   beq collision_detection_return_true
 
   ; check if bottom right corner obj1 is inside obj2
@@ -56,7 +56,7 @@ collision_detection .macro
   adc \4
   tay  ; put obj1.y into reg_y
   is_point_in_box \5, \6, \7, \8
-  sdc TRUE
+  sbc TRUE
   beq collision_detection_return_true
   
   lda FALSE
