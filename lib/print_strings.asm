@@ -49,7 +49,7 @@ print_sprite .macro
 print_string .macro
   ldx \2
   ldy #00
-string_loop:
+string_loop\@
   lda \3
   sta $2004
   lda \1, y
@@ -63,7 +63,7 @@ string_loop:
   iny
   lda \1, y
   cmp #255
-  bne string_loop
+  bne string_loop\@
   .endm
 
 

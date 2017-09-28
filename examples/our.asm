@@ -174,9 +174,15 @@ x_left:
 
 check_x_paddle_one:
 
-  collision_detection BALL_X, BALL_Y, BALL_WIDTH, BALL_HEIGHT, PADDLE_1_X, PADDLE_1_Y, PADDLE_1_WIDTH, PADDLE_1_HEIGHT
+;  collision_detection BALL_X, BALL_Y, BALL_WIDTH, BALL_HEIGHT, PADDLE_1_X, PADDLE_1_Y, PADDLE_1_WIDTH, PADDLE_1_HEIGHT
 
-  sbc TRUE 
+  ldx BALL_X
+  ldy BALL_Y
+
+  is_point_in_box PADDLE_1_X, PADDLE_1_Y, PADDLE_1_WIDTH, PADDLE_1_HEIGHT
+
+  sbc FALSE
+
   bne finish_x
   lda #$01
   cmp BALL_DIRECTION_X
@@ -185,42 +191,13 @@ check_x_paddle_one:
   sta BALL_DIRECTION_X
   jmp finish_x
 
+swap_ball_dir_x_1:
+
   lda #$01
   sta BALL_DIRECTION_X
 
 finish_x:
 
-  ldy BALL_Y
-  lda BALL_DIRECTION_Y
-  cmp #$01
-  bne y_up
-y_down:
-  iny
-  sty BALL_Y
-  jmp check_y_paddle_one
-
-y_up:
-  dey
-  sty BALL_Y
-  jmp check_y_up
-
-check_y_paddle_one:
-
-  collision_detection BALL_X, BALL_Y, BALL_WIDTH, BALL_HEIGHT, PADDLE_1_X, PADDLE_1_Y, PADDLE_1_WIDTH, PADDLE_1_HEIGHT
-
-  sbc TRUE 
-  bne finish_y
-  lda #$01
-  cmp BALL_DIRECTION_Y
-  beq swap_ball_dir_y_1
-  lda #$00
-  sta BALL_DIRECTION_Y
-  jmp finish_y
-
-  lda #$01
-  sta BALL_DIRECTION_Y
-
-finish_y:
 
 ; collision_detection
 

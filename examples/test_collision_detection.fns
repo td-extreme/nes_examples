@@ -1,0 +1,15 @@
+; test_collision_detection.asm
+Start                            = $801C
+reset                            = $80AE
+infin                            = $803A
+waitblank                        = $8047
+end_if                           = $80AE
+title                            = $800C
+is_true                          = $8061
+is_false                         = $8089
+str_true                         = $8011
+tilepal                          = $80B1
+loadpal                          = $803C
+string_loop                      = $0000
+hello_world                      = $8000
+str_false                        = $8016

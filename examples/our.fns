@@ -1,0 +1,25 @@
+; our.asm
+check_x_paddle_one               = $811E
+Start                            = $8011
+right_not_pressed                = $80B2
+x_left                           = $811A
+reset                            = $8182
+infin                            = $805B
+advance_space                    = $8185
+is_point_in_box_exit             = $8148
+waitblank                        = $80BF
+left_not_pressed                 = $809F
+title                            = $800C
+read_button                      = $819C
+tilepal                          = $81A9
+swap_ball_dir_x_1                = $815C
+read_joypad                      = $818E
+loadpal                          = $80B4
+string_loop                      = $80D3
+hello_world                      = $8000
+paddle_loop                      = $8166
+x_right                          = $8113
+is_point_in_box_return_false     = $8145
+up_not_pressed                   = $8078
+down_not_pressed                 = $808C
+finish_x                         = $8161
