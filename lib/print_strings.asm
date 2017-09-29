@@ -49,7 +49,7 @@ print_sprite .macro
 print_string .macro
   ldx \2
   ldy #00
-string_loop\@
+string_loop\@:
   lda \3
   sta $2004
   lda \1, y

@@ -1,3 +1,0 @@
-; sound.asm
-Start                            = $8000
-infinite                         = $8019

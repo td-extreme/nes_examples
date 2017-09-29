@@ -1,9 +1,0 @@
-; hello_world.asm
-string_loop00001                 = $803F
-Start                            = $800C
-string_loop00002                 = $8064
-infin                            = $8035
-waitblank                        = $8035
-tilepal                          = $8087
-loadpal                          = $802A
-hello_world                      = $8000
