@@ -13,8 +13,9 @@
   .bank 0             ; bank 0 - our place for code.
   .org $8000          ; code starts at $8000
 
-  .include "print_strings.asm"
-  .include "collision_detection.asm"
+  .include "../lib/boolean.asm"
+  .include "../lib/print_strings.asm"
+  .include "../lib/collision_detection.asm"
 
 hello_world  .db _H, _E, _L, _L, _O, _SPACE, _W, _O, _R, _L, _D, END_STRING
 title .db _P, _O, _N, _G, END_STRING
@@ -245,10 +246,10 @@ read_joypad:
   bne     read_button
   rts
 
-tilepal: .incbin "our.pal" ; include and label our palette
+tilepal: .incbin "../resources/our.pal" ; include and label our palette
 
   .bank 2   ; switch to bank 2
   .org $0000  ; start at $0000
-  .incbin "our.bkg"  ; empty background first
-  .incbin "sheet01.chr"  ; our sprite pic data
+  .incbin "../resources/our.bkg"  ; empty background first
+  .incbin "../resources/sheet01.chr"  ; our sprite pic data
   ; note these MUST be in that order.

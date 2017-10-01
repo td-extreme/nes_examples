@@ -65,5 +65,3 @@ string_loop\@:
   cmp #255
   bne string_loop\@
   .endm
-
-

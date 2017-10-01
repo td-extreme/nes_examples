@@ -65,7 +65,6 @@ waitblank:        ; this is the wait for VBlank code from above
   lda #$00   ; $2004 to start
   sta $2003  ; at $0000.
 
-
   lda TRUE
   sbc TRUE
   beq is_true
