@@ -15,6 +15,9 @@ Start:
   setup_ppu
   load_palette tilepal
 
+infin:
+  wait_blank
+
 ; test true passes
   set_cursor  #80, #70
   lda #TRUE
@@ -24,6 +27,16 @@ Start:
   set_cursor #80, #80
   lda #FALSE
   assert_true_a
+
+; test true passes
+  set_cursor  #80, #70
+  lda #TRUE
+  assert_a_true
+
+; test false fails
+  set_cursor #80, #80
+  lda #FALSE
+  assert_a_true
 
 ; test assert_address_value_equals passes
   set_cursor #80, #90
@@ -37,7 +50,46 @@ Start:
   stx TEST_VAR_1
   assert_address_value_equals TEST_VAR_1, #TWO
 
-infin:
+; test assert_accumulator_equals passes
+  set_cursor #80, #110
+  lda #01
+  assert_accumulator_equals #01
+
+; test assert_accumulator_equals fails
+  set_cursor #80, #120
+  lda #01
+  assert_accumulator_equals #02
+
+; test assert_a_equals passes
+  set_cursor #80, #130
+  lda #01
+  assert_a_equals #01
+
+; test assert_a_equals fails
+  set_cursor #80, #140
+  lda #01
+  assert_a_equals #02
+
+; test assert_x_equals passes
+  set_cursor #80, #150
+  ldx #01
+  assert_x_equals #01
+
+; test assert_x_equals fails
+  set_cursor #80, #160
+  ldx #01
+  assert_x_equals #02
+
+; test assert_y_equals passes
+  set_cursor #80, #170
+  ldy #01
+  assert_y_equals #01
+
+; test assert_y_equals fails
+  set_cursor #80, #180
+  ldy #01
+  assert_y_equals #02
+
   jmp infin
 
   .include "../lib/basic_resources.asm"
