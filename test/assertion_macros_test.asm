@@ -7,7 +7,8 @@
 
 ONE     EQU %00000001
 TWO     EQU %00000010
-THREE   EQU %00000100
+THREE   EQU %00000011
+FOUR    EQU %00000100
 
 TEST_VAR_1  EQU  $EE
 
@@ -18,15 +19,15 @@ Start:
 infin:
   wait_blank
 
-; test true passes
+; test assert_true_accumulator passes
   set_cursor  #80, #70
   lda #TRUE
-  assert_true_a
+  assert_accumulator_true
 
-; test false fails
+; test assert_true_accumulator fails
   set_cursor #80, #80
   lda #FALSE
-  assert_true_a
+  assert_accumulator_true
 
 ; test true passes
   set_cursor  #80, #70
@@ -93,4 +94,3 @@ infin:
   jmp infin
 
   .include "../lib/basic_resources.asm"
-

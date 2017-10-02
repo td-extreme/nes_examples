@@ -14,7 +14,7 @@ test_failed\@:
 end_if\@:
   .endm
 
-assert_true_a .macro
+assert_accumulator_true .macro
   cmp #TRUE
   print_result
 

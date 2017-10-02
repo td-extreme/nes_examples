@@ -21,7 +21,7 @@ infin:
   wait_blank
   print_string hello_world, TEXT_X, TEXT_Y
   print_string hello_world, TEXT_Y, TEXT_X
-  
-  jmp infin 
+
+  jmp infin
 
   .include "../lib/basic_resources.asm"
