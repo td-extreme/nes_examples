@@ -35,7 +35,7 @@ _QUESTION_MARK = 46
 _DASH = 47
 END_STRING = 255
 
-print_sprite .macro
+print_char .macro
   lda \3
   sta $2004
   lda \1

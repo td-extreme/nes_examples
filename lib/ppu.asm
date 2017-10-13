@@ -12,9 +12,9 @@ setup_ppu .macro
   .endm
 
 load_palette .macro
-  ldx #00 
+  ldx #00
 loadpal\@:        ; this is a freaky loop
-  lda \1, x  ; that gives 32 numbers
+  lda \1, x       ; that gives 32 numbers
   sta $2007       ; to $2007, ending when
   inx             ; X is 32, meaning we
   cpx #32         ; are done.

@@ -1,3 +1,4 @@
+; Button Constants
 RIGHT_BUTTON    EQU %00000001
 LEFT_BUTTON     EQU %00000010
 DOWN_BUTTON     EQU %00000100
@@ -10,6 +11,9 @@ A_BUTTON        EQU %10000000
 GAMEPAD_1_STAT        EQU     $FC     ; byte containing status of joypad
 OLD_GAMEPAD_1_STAT    EQU     $FD     ; joypad status from previous refresh
 
+; \1 Button_constant
+; \2 exit label
+
 if_gamepad_1_pressed .macro
   lda #\1
   and GAMEPAD_1_STAT
@@ -18,10 +22,35 @@ if_gamepad_1_pressed .macro
   bne \2
   .endm
 
+; \1 Button_constant
+; \2 exit label
+
 if_gamepad_1_held .macro
   lda #\1
   and GAMEPAD_1_STAT
   beq \2
+  .endm
+
+; \1 Button_constant
+; \2 subrutine to jump to
+if_gamepad_1_button_press .macro
+  lda #\1
+  and GAMEPAD_1_STAT
+  beq exit\@
+  and OLD_GAMEPAD_1_STAT
+  bne exit\@
+  jsr \2
+exit\@
+  .endm
+
+; \1 Button_constant
+; \2 subrutine to jump to
+if_gamepad_1_button_held .macro
+  lda #\1
+  and GAMEPAD_1_STAT
+  beq exit\@
+  jsr \2
+exit\@
   .endm
 
 update_gamepad:
@@ -35,7 +64,7 @@ read_joypad:
   sty     $4016   ; reset strobe
   dey
   sty     $4016   ; clear strobe
-  sty     GAMEPAD_1_STAT ; JOY_STAT = 0 (clear all button bits)
+  sty     GAMEPAD_1_STAT ; GAMEPAD_1_STAT = 0 (clear all button bits)
   ldy     #$08    ; do all 8 buttons
   read_button:
   lda     $4016   ; load button status

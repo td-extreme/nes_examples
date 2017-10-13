@@ -72,12 +72,12 @@ Start: lda #%00001000 ; do the setup of PPU
   ldx #08
   stx PADDLE_1_WIDTH
   ldx #32
-  stx PADDLE_1_HEIGHT  
+  stx PADDLE_1_HEIGHT
 
   ldx #125
   stx BALL_X
   stx BALL_Y
-  
+
   ldx #08
   stx BALL_WIDTH
   stx BALL_HEIGHT
@@ -156,7 +156,7 @@ waitblank:        ; this is the wait for VBlank code from above
 
   print_string hello_world, TEXT_X, TEXT_Y
 
-  print_sprite #24, BALL_X, BALL_Y
+  print_char #24, BALL_X, BALL_Y
 
 ; collision_detection
 
